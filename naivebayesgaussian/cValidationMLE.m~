@@ -1,0 +1,16 @@
+function [ mcr ] = cValidationMLE( xtrain, yclass, folder )
+%CVALIDATION Summary of this function goes here
+%   Detailed explanation goes here
+
+indices=crossvalind('kfold',yclass,folder);
+for i=1:folder
+    test=(indices==1);
+    train=~test;
+    [likelihood_matrix, priors]=nbvMLETrain(xtrain(train,:),yclass(train,:));
+    yfit=nbcPredict(likelihood_matrix, priors,xtrain(test,:));
+    bad=~strcmp(yfit,yclass(test,:));
+    mrate=sum(bsd)
+end
+
+end
+
